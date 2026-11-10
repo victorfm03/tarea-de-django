@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de libros</title>
+    </head>
+
+    <body>
+        {% extends 'catalogo/base.html' %}
+        {% block titulo %}Catálogo de libros {% endblock %}
+        {% block contenido %}
+        <ul>
+            {% for libro in libros %}
+            <li>
+                <a href="{% url 'detalle_libro' pk=libro.pk %}"> 
+                    Titulo: {{ libro.titulo }}
+                </a> 
+                Autor: 
+                
+                {{ libro.autor }} 
+                
+                Genero: 
+                
+                {{ libro.genero }} 
+                
+                Estado: 
+                
+                {% if libro.disponible %}
+                    Disponible
+                {% else %}
+                    No disponible
+                {% endif %}
+            </li>
+            {% empty %}
+            <li>No hay libros en el catálogo</li>
+            {% endfor %}
+        </ul>
+
+        {% endblock %}
+    </body>
+</html>

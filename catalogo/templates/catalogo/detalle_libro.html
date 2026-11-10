@@ -1,0 +1,11 @@
+
+        {% extends 'catalogo/base.html' %}
+        {% load static %}
+
+        {% block titulo %}{{libro.titulo}}{% endblock %}
+        {% block contenido %}
+        <li>Autor: {{ libro.autor }}</li>
+        <li>Genero: {{ libro.genero }}</li>
+        <li>año de publicación: {{ libro.anio_publicacion }}</li>
+        <li>Estado: {% if libro.disponible %} Disponible {% else %} No disponible {% endif %}</li>
+        {% endblock %}

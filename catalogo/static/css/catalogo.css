@@ -1,0 +1,80 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f1e8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cabecera */
+header {
+    background-color: #6b4226;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Menú de navegación */
+nav {
+    margin-top: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Contenido principal */
+main {
+    width: 80%;
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+/* Libros */
+.libro {
+    background-color: #f5f1e8;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #6b4226;
+}
+
+.libro a {
+    color: #6b4226;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.libro a:hover {
+    text-decoration: underline;
+}
+
+/* Detalles */
+.detalle {
+    line-height: 1.8;
+}
+
+/* Estado de disponibilidad */
+.disponible {
+    color: green;
+    font-weight: bold;
+}
+
+.no-disponible {
+    color: red;
+    font-weight: bold;
+}

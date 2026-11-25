@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Libro(models.Model):
@@ -23,9 +24,11 @@ class Libro(models.Model):
     genero = models.CharField(max_length=20, choices=Genero.choices, default=Genero.NOVELA)
     dificultad = models.CharField(max_length=20, choices=Dificultad.choices, default=Dificultad.BASICA)
     disponible = models.BooleanField(default=True)
+    editorial=models.ForeignKey("Editorial", on_delete=models.PROTECT, related_name="libros",null=True, blank=True)
+    autores=models.ManyToManyField("Autor",related_name="libros",blank=True)
 
     def __str__(self):
-        return self.titulo
+        return f"{self.isbn} {self.titulo} {self.precio} {self.disponible} {self.editorial}"
 
 class Editorial(models.Model):
     nombre = models.CharField(max_length=150, unique=True)
@@ -46,7 +49,64 @@ class Autor(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
 
+class PerfilUsuario(models.Model):
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="perfil"
+    )
+    telefono = models.CharField(max_length=20, blank=True)
+    observaciones = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"Perfil de {self.usuario}"
+
+
+class PerfilUsuario(models.Model):
+    usuario=models.OneToOneField(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="perfil",
+        )
+    telefono = models.CharField(max_length=20, blank=True)
+    observaciones = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"Perfil de {self.usuario}"
+
+
+class Participacion(models.Model):
+     class Funcion(models.TextChoices):
+          PRINCIPAL="PRI","Autor principal"
+          COAUTOR="COA", "Coautor"
+          COLABORADOR="COL","Colaborador"
+
+     libro=models.ForeignKey(Libro, on_delete=models.CASCADE, related_name="participaciones")
+     autor=models.ForeignKey(Autor, on_delete=models.CASCADE, related_name="participaciones")
+     funcion=models.CharField(max_length=3, choices=Funcion.choices, default=Funcion.COAUTOR)
+
+class Prestamo(models.Model):
+    libro = models.ForeignKey(
+        "Libro", on_delete=models.PROTECT,
+        related_name="prestamos"
+    )
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="prestamos_biblioteca"
+    )
+    fecha_prestamo = models.DateTimeField(auto_now_add=True)
+    fecha_devolucion = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Préstamo {self.pk}: {self.libro}"
+
+
 class Meta:
-        ordering = ["titulo", "nombre"]
-        verbose_name = ["Libro", "Autor"]
-        verbose_name_plural = ["Libros", "Autores"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["libro", "autor"], name="participacion_unica_libro_autor"
+            )
+        ]
+
+def __str__(self):
+        return f"{self.autor} - {self.libro} ({self.get_funcion_display()})"

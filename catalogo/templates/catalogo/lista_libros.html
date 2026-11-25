@@ -16,21 +16,7 @@
                 <a href="{% url 'detalle_libro' pk=libro.pk %}"> 
                     Titulo: {{ libro.titulo }}
                 </a> 
-                Autor: 
                 
-                {{ libro.autor }} 
-                
-                Genero: 
-                
-                {{ libro.genero }} 
-                
-                Estado: 
-                
-                {% if libro.disponible %}
-                    Disponible
-                {% else %}
-                    No disponible
-                {% endif %}
             </li>
             {% empty %}
             <li>No hay libros en el catálogo</li>

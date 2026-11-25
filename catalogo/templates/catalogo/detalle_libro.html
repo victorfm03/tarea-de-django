@@ -4,8 +4,10 @@
 
         {% block titulo %}{{libro.titulo}}{% endblock %}
         {% block contenido %}
-        <li>Autor: {{ libro.autor }}</li>
-        <li>Genero: {{ libro.genero }}</li>
-        <li>año de publicación: {{ libro.anio_publicacion }}</li>
-        <li>Estado: {% if libro.disponible %} Disponible {% else %} No disponible {% endif %}</li>
+        <p>Editorial {{libro.editorial.nombre}}</p>
+        <ul>
+                {% for autor in autores %}
+                <li>Autor: {{autor.nombre }}</li>
+                {% endfor %}
+        </ul>
         {% endblock %}

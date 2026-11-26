@@ -2,6 +2,11 @@
         {% extends 'catalogo/base.html' %}
         {% load static %}
 
-        {% block titulo %}{{libro.titulo}}{% endblock %}
+        {% block titulo %}{% endblock %}
         {% block contenido %}
+        <p>Editorial {{editorial.nombre}}</p>
+        <p>email: {{editorial.email}}</p>
+        <p>sitio web: {{editorial.sitio_web}}</p>
+        <p>Activa: {{editorial.activa}}</p>
+        <a href="{% url 'lista_libros' %}">Volver a la lista de libros</a>
         {% endblock %}

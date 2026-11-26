@@ -14,8 +14,7 @@
             {% for libro in libros %}
             <li>
                 <a href="{% url 'detalle_libro' pk=libro.pk %}"> 
-                    Titulo: {{ libro.titulo }}
-                    
+                    Titulo: {{ libro.titulo }}    
                 </a> 
                 
             </li>
@@ -24,6 +23,8 @@
             {% endfor %}
         </ul>
 
+        <a href="{% url 'participaciones' %}">Ver las participaciones</a><br>
+        <a href="{% url 'editoriales' %}">Ver las editoriales</a>
         {% endblock %}
     </body>
 </html>

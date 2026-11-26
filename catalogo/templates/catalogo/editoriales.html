@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>editoriales</title>
-    </head>
 
-    <body>
+        {% extends 'catalogo/base.html' %}
+        {% load static %}
+
+        {% block titulo %}{% endblock %}
+        {% block contenido %}
         <h1>editoriales</h1>
+        {% for editorial in editoriales %}
+        <h2><a href="{% url 'editorial' pk=editorial.pk %}">{{editorial.nombre}}</a></h2>
         <ul>
             {% for libro in editorial.libros_disponibles%}
-            <li>{{editorial.nombre}}</li>
+            <li><a href="{% url 'detalle_libro' pk=libro.pk %}">{{libro.titulo}}</a></li>
             {% endfor%}
         </ul>
-    </body>
-</html>
+        
+        <a href="{% url 'lista_libros' %}">Volver a la lista de libros</a>
+        {% endfor %}
+        {% endblock %}

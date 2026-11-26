@@ -6,8 +6,9 @@
         {% block contenido %}
         <p>Editorial {{libro.editorial.nombre}}</p>
         <ul>
-                {% for autor in autores %}
-                <li>Autor: {{autor.nombre }}</li>
+                {% for autor in libro.autores.all %}
+                <li>Autor: <a href="{% url 'autor' pk=autor.pk %}">{{autor.nombre }}</a></li>
                 {% endfor %}
         </ul>
+        <a href="{% url 'lista_libros' %}">Volver a la lista de libros</a>
         {% endblock %}

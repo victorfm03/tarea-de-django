@@ -19,10 +19,10 @@ def lista_libros(request):
     return render(request, 'catalogo/lista_libros.html',contexto)
 
 def detalle_libro(request, pk):
-    libro = get_object_or_404(Libro, pk=pk)
-    
-    if libro:
-        libro=libro.select_related("editorial").prefetch_related("autores").get(pk=pk)
+    libro = get_object_or_404(
+        Libro.objects.select_related("editorial").prefetch_related("autores"),
+        pk=pk
+    )
 
     return render(request, 'catalogo/detalle_libro.html', {'libro': libro})
 
@@ -45,11 +45,12 @@ def editoriales(request):
             to_attr="libros_disponibles",
         )
     )
-    return render(request, "catalogo/editoriales.html")
+    return render(request, "catalogo/editoriales.html",{'editoriales':editoriales})
 
 def participaciones(request):
 
-    participaciones=Participacion.objects.annotate(total)
+    participaciones=Participacion.objects.select_related("libro","autor")
+    return render(request, "catalogo/participaciones.html",{'participaciones':participaciones})
 
 
 def prestar_libro(request,pk_libro, pk_usuario):

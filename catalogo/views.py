@@ -19,7 +19,7 @@ def lista_libros(request):
     return render(request, 'catalogo/lista_libros.html',contexto)
 
 def detalle_libro(request, pk):
-    libro = Libro.objects.filter(precio__lte=10)
+    libro = get_object_or_404(Libro, pk=pk)
     
     if libro:
         libro=libro.select_related("editorial").prefetch_related("autores").get(pk=pk)
